@@ -1,0 +1,35 @@
+BUILDROOTDIR = @abs_top_builddir@
+SUBDIRS = src
+BUILDDIRS = $(addprefix $(BUILDROOTDIR)/, $(SUBDIRS))
+BINDIR =  $(addprefix $(BUILDROOTDIR)/, bin)
+SCRIPTDIR = $(addprefix $(BUILDROOTDIR)/, src/scripts)
+EXTRA_DIST = config
+
+
+all:
+	@for i in $(BUILDDIRS) ; do \
+	    cd "$$i" && $(MAKE); \
+	done
+clean:
+	@for i in $(BUILDDIRS) ; do \
+	    cd "$$i" && $(MAKE) clean; \
+	done
+
+distclean:
+	make clean
+	@RM@ -rf $(BINDIR)/pseat
+	@RM@ -rf $(BINDIR)/build_run_profile.sh
+
+install:
+	@LN@ -fs  $(BINDIR)/pseat @prefix@/bin/pseat
+	@LN@ -fs $(SCRIPTDIR)/build_run_profile.sh @prefix@/bin/build_run_profile.sh
+	@LN@ -fs $(SCRIPTDIR)/config_tuner.sh  @prefix@/bin/config_tuner.sh
+	@LN@ -fs $(SCRIPTDIR)/gen_makefile_with_opts.sh @prefix@/bin/gen_makefile_with_opts.sh
+	@LN@ -fs $(SCRIPTDIR)/config_tuner.sh  @prefix@/bin/config_tuner.sh
+
+test:
+	cd test && ./test.sh
+
+
+.PHONY: install
+.PHONY: test

@@ -1,0 +1,31 @@
+PSEAT_INCLUDE_PATH = @abs_top_builddir@/src
+PSEAT_TOP_SRC_PATH = $(PSEAT_INCLUDE_PATH)
+PSEAT_OBJ_PATH = @abs_top_builddir@/obj
+PSEAT_LIB_PATH = $(PSEAT_OBJ_PATH)
+PSEAT_EXE_PATH =  @abs_top_builddir@/bin
+PSEAT_SCRIPT_PATH =  @abs_top_builddir@/src/scripts
+
+LIB_DRIVER = libpseat_driver.a
+LIB_EVAL = libpseat_eval.a
+LIB_SEARCH = libpseat_search.a
+LIB_ML = libpseat_ml.a
+LIB_INTERFACE = libpseat_interface.a
+
+ALLLIBS = $(PSEAT_LIB_PATH)/$(LIB_DRIVER) \
+          $(PSEAT_LIB_PATH)/$(LIB_SEARCH) \
+          $(PSEAT_LIB_PATH)/$(LIB_EVAL) \
+          $(PSEAT_LIB_PATH)/$(LIB_ML) \
+          $(PSEAT_LIB_PATH)/$(LIB_INTERFACE)
+
+EXEC = pseat
+
+
+CXX=@CXX@
+CC=@CC@
+
+CXXFLAGS = @CXXFLAGS@ -DLOG
+CFLAGS = @CFLAGS@
+CPPFLAGS = @CPPFLAGS@ -I. -I$(PSEAT_INCLUDE_PATH)
+
+AR = @AR@ 
+ARRFLAGS = -rv 
